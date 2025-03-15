@@ -28,17 +28,14 @@ export default function Home() {
     setTotal(newTotal);
   }, [groceryList]);
 
-  useEffect(() => {
-    if(total > 30) {
-      alert("Over Budget!");
-    }
-  }, [total]);
-
   const addItem = useCallback((food: Food) => {
     setGroceryList([...groceryList, food]);
+    if(total + food.price > 30) {
+      alert("Over Budget!");
+    }
     setNewFoodName("");
     setNewFoodPrice("");
-  }, [groceryList]);
+  }, [groceryList, total]);
 
   const removeItem = useCallback((food: Food) => {
     setGroceryList(groceryList => groceryList.filter(item => item !== food));
